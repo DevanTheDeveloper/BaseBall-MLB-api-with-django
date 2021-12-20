@@ -1,0 +1,37 @@
+{% extends 'website/base.html' %}
+{% load static %}
+{% block content %}
+<div>
+<h1>File Upload</h1>
+
+		<form method="POST" enctype="multipart/form-data">
+			{% csrf_token %}
+			<fieldset class="form-group">
+			<legend class="border-bottom">Upload your file</legend>
+			{{ form}}
+			</fieldset>
+				<div class="form-group">
+					<button class="btn btn-outline-info" type="submit">Upload</button>
+
+				</div>
+
+		</form>
+{% if messages %}
+<small>
+
+<ul class="">
+    {% for message in messages %}
+    <li{% if message.tags %} class=""{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+</small>
+{% endif %}
+<h2>Uploads</h2>
+<ul>
+{% for upload in uploads %}
+<li>{{upload}}, {{upload.file}} -- Submitted: {{upload.date}}</li>
+
+{% endfor %}
+</ul>
+
+{% endblock %}

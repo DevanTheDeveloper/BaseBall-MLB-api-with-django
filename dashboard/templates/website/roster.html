@@ -1,0 +1,120 @@
+
+{% extends 'website/base.html' %}
+{% load static %}
+
+{% block content %}
+<p><a href='{% url "index" %}'>MLB</a>--><a href='/mlb/team/{{teamData.id}}'>{{teamData.name}}</a></p>
+{% if teamData %}
+
+
+<div class='container d-flex justify-content-center'>
+
+<div class="card shadow mb-3" >
+  <div class="row g-0">
+    <div class="col-md-6 border-bottom border-3 pt-4">
+      <img src="https://www.mlbstatic.com/team-logos/{{teamData.id}}.svg" class="img-fluid rounded-start" alt="...">
+    </div>
+    <div class="col-md-6 border-bottom border-3">
+      <div class="card-body">
+        <h5 class="card-title">{{teamData.name}}</h5>
+        <p class="card-text"> League: {{teamData.league.name}}</p>
+        <p class="card-text"> Main Venue: {{teamData.venue.name}}</p>
+        <p class="card-text"> League: {{teamData.league.name}}</p>
+        <p class="card-text"> Division: {{teamData.division.name}}</p>
+        <p class="card-text"> Spring League: {{teamData.springLeague.name}} / {{teamData.springLeague.abbreviation}} </p>
+        <p class="card-text"> Main Venue: {{teamData.venue.name}}</p>
+
+
+
+
+        <p class="card-text text-end">Status: {% if teamData.active %}<span class='text-success'>Active </span>{% else %}Not Active {% endif %}</p>
+        
+      </div>
+    </div>
+      <div class='col-6'>
+        <h6 class='text-center pt-3'>Main Venue</h6>
+        <h5 class='text-center pt-3'>{{teamData.venue.name}}</h5>
+        <img src="https://prod-gameday.mlbstatic.com/responsive-gameday-assets/1.2.0/images/fields/{{teamData.venue.id}}.svg" class="img-fluid rounded-start" alt="...">
+      </div>
+
+        <div class='col-6 border-left border-3'>
+        <h6 class='text-center pt-3'>Spring Venue</h6>
+        <h5 class='text-center pt-3'>{{springVenue.name}}</h5>
+        <img src="https://prod-gameday.mlbstatic.com/responsive-gameday-assets/1.2.0/images/fields/{{springVenue.id}}.svg" class="img-fluid rounded-start" alt="...">
+
+      </div>
+
+
+  </div>
+</div>
+</div>
+{% endif %}
+
+
+    <div class='container'>
+
+    <div class='row row-cols-10  g-4'>
+
+        {% for name,value in rosterData.items %}
+        
+        <div class="col-md-4">
+        <div class="card bg-dark bg-opacity-100  text-white rounded shadow"  >
+         <a class=' d-flex justify-content-center' href='/mlb/team/{{teamData.id}}/player/{{value.person.id}}'>
+        <img class="img-fluid bg-light px-2 py-2" src="https://content.mlb.com/images/headshots/current/60x60/{{value.person.id}}.png"></a>
+        <div class='card-header border-bottom border-white border-1  d-flex justify-content-between'>
+           
+        <span class='text-start'>{{value.position.abbreviation}}</span>
+        {% if value.status.code == 'A' %}
+        <span class='text-end'>Status: <strong class='text-success'>Active</strong></span>
+        {% else %}
+        <span class='text-end text-danger'>Not Active</span>
+        {% endif %}
+   
+        </div>
+      <div class="card-body"  >
+        <p class="display-6">{{name}}</p>
+        <div class='row'>
+            <div class='col mb-2'>
+        
+                <p class="card-text">Position: {{value.position.name}} </p>
+                <p class="card-text">Type: {{value.position.type}} </p>
+            </div>
+
+            <div class='col mb-2'>
+               {% if value.jerseyNumber %}
+                <div class='display-2 text-end pl-5 my-0'><sup>#</sup>{{value.jerseyNumber}}</div>
+                {% else %}
+                <div class='display-2 text-end  pl-5 my-0'><sup>#N/A</sup> </div>
+                {% endif %}
+            </div>
+                <a class='btn btn-primary' href='/mlb/team/{{teamData.id}}/player/{{value.person.id}}'>Statistics</a>
+            </div>
+            
+
+
+      </div>
+
+     
+        <div class='card-footer border border-white border-2 text-center'>
+
+         <a class='' href='/mlb/team/{{teamData.id}}'>{{teamData.name}}</a>
+        </div> 
+    </div>
+    </div>
+    {% endfor %}
+  
+</div>
+
+</div>
+
+
+
+
+
+
+
+    
+
+
+
+{% endblock %}

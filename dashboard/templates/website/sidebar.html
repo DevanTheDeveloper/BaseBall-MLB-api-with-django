@@ -1,0 +1,58 @@
+{% load static %}
+
+<div class=" p-3 text-white bg-dark" style="width: 280px">
+    <a href="/" class="mt-0">
+      <img src='{% static "img/logo.png" %}' class="img-fluid rounded-start" style='max-height:100px' alt="...">
+    </a>
+    <hr>
+    <ul class="nav nav-pills flex-column mb-auto">
+      <li class="nav-item ">
+        <a href="#" class="nav-link active" aria-current="page">
+
+          Home
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'index' %}" class="nav-link text-white">
+
+          Teams/Rosters
+        </a>
+      </li>
+
+
+    <li>
+        <button class="btn btn-toggle rounded text-white" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="true">
+          Graphs
+        </button>
+        <div class="collapse show " id="dashboard-collapse" style="">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+            <li><a href="{% url 'team_salaries' %}" class="link-dark rounded text-white">Player Salaries</a></li>
+            <li><a href="{% url 'team_stats' %}" class="link-dark rounded text-white">Team Wins</a></li>
+            <li><a href="{% url 'upload_file' %}" class="link-dark rounded text-white">Upload Report</a></li>
+            <li><a href="{% url 'download_file' %}" class="link-dark rounded text-white">Download Report</a></li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+    <hr>
+    <div class="dropdown">
+      <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+        <img src='{% static "img/Player.png" %}' alt="" width="50" height="50" class="rounded-circle me-2 bg-light">
+        {% if user.is_authenticated %}
+        <strong>{{request.user}}</strong>
+        {% else %}
+        <strong>Not Logged In</strong>
+        {% endif %}
+      </a>
+      <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+
+        {% if user.is_authenticated %}
+        <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item" href="{% url 'logout' %}">Sign out</a></li>
+        {% else %}
+        <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>

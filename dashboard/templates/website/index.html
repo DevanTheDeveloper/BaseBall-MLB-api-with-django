@@ -1,0 +1,52 @@
+
+{% extends 'website/base.html' %}
+{% load static %}
+
+{% block content %}
+<h1 class='display-3 text-center'>MLB Teams </h1>
+
+    <div class='row row-cols-10  g-4'>
+
+        {% for key,value in teams.items %}
+
+        <div class="col-md-4">
+        <div class="card bg-dark bg-opacity-100  text-white h-100 shadow" >
+         <a class=' d-flex justify-content-center' href='team/{{value.id}}'>
+        <img class="img-fluid bg-light px-2 py-2" src="https://www.mlbstatic.com/team-logos/{{value.id}}.svg"></a>
+        <div class='card-header border-bottom border-white border-1  d-flex justify-content-between'>
+        <h3 class='display-5' >{{value.name}}</h3>
+        </div>
+      <div class="card-body">
+        <div class='d-flex justify-content-between'>
+        <span class='text-start'>{{value.abbreviation}}</span>
+        {% if value.active %}
+        <span class='text-end'>Status: <strong class='text-success'>Active</strong></span>
+        {% else %}
+        <span class='text-end text-danger'>Status: Not Active</span>
+        {% endif %}
+        </div>
+        <p class="card-text"> Main Venue: {{value.venue.name}}</p>
+       
+      </div>
+        <div class='card-footer border border-white border-2 text-center'>
+         {{value.location}}
+        </div> 
+    </div>
+    </div>
+    {% endfor %}
+  
+</div>
+
+
+
+
+
+
+
+
+
+    </div>
+
+
+
+{% endblock %}

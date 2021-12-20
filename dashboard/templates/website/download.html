@@ -1,0 +1,25 @@
+{% extends 'website/base.html' %}
+{% load static %}
+{% block content %}
+
+<h1>File Download</h1>
+{% if messages %}
+<small>
+
+<ul class="">
+    {% for message in messages %}
+    <li{% if message.tags %} class=""{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+</small>
+{% endif %}
+<h4>Database</h4>
+<ul>
+{% for upload in uploads %}
+<li>Title:{{upload}}</li>
+<li>Submitted:{{upload.date}}</li>
+<li><a href="media/{{upload.file}}">Download</a></li>
+<hr>
+{% endfor %}
+</ul>
+{% endblock %}

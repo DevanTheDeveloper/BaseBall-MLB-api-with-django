@@ -1,0 +1,122 @@
+
+{% extends 'website/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<p><a href='{% url "index" %}'>MLB</a>--><a href='/mlb/team/{{teamData.id}}'>{{teamData.name}}</a>--><a href='/mlb/team/{{teamData.id}}/player/{{playerData.profile.id}}'>{{playerData.profile.fullName}}</a></p>
+<div class='container bg-dark bg-opacity-75 text-light shadow rounded'>
+	<div class='card bg-dark bg-opacity-75 text-light pt-3'>
+		<div class='row'>
+			<div class='col-6 '>
+				<img class="img-fluid bg-light " src="https://content.mlb.com/images/headshots/current/60x60/{{value.person.id}}.png">
+
+			
+					
+						<p class='text-center mt-3'>Status: {% if playerData.profile.active|stringformat:'s' == 'True'|stringformat:'s' %}
+									<strong class='text-success'>Active</strong>
+								{% else %}
+									<strong class='text-warning'>Not Active</strong>{% endif %} </p>
+				
+
+			
+			</div>
+
+			<div class='col'>
+				<div class='row'>
+					<div class='col'>
+				<p class='card-text'>Full Name : {{playerData.profile.fullName}}</p>
+				<p class='card-text'>Birthdate: {{playerData.profile.birthDate}}</p>
+				<p class='card-text'>Age: {{playerData.profile.currentAge}}</p>
+				<p class='card-text'>Birth Place: {{playerData.profile.birthCity}},{{playerData.profile.birthStateProvince}}</p>
+				<p class='card-text'>Country of Birth: {{playerData.profile.birthCountry}}</p>
+				<p class='card-text'>Height: {{playerData.profile.height}}</p>
+				<p class='card-text'>Weight: {{playerData.profile.weight}}</p>
+
+				</div>
+
+				<div class='col'>
+					<p class='card-text'>MLB Debut Date: {{playerData.profile.mlbDebutDate}}</p>
+				{% if playerData.profile.nickName%}
+				<p class='card-text'>Nickname : {{playerData.profile.nickName}}</p> 
+				{% endif %}
+					<p class='card-text'>Bat Side: {{playerData.profile.batSide.code}} - {{playerData.profile.batSide.description}}</p>
+					<p class='card-text'>Pitch Hand: {{playerData.profile.pitchHand.code}} - {{playerData.profile.pitchHand.description}}</p>
+					<p class='card-text'>Strike Zone Top: {{playerData.profile.weight}}</p>
+					<p class='card-text'>Strike Zone Bottom: {{playerData.profile.weight}}</p>
+					<p class='card-text'>Primary Position: {{playerData.profile.primaryPosition.name}}</p>
+					{% if playerData.profile.primaryPosition.name != playerData.profile.primaryPosition.type %}
+					<p class='card-text'>Type: {{playerData.profile.primaryPosition.type}}</p>
+					{% endif %}
+
+					<p class='card-text text-end p-1'>Stats Verified: {{playerData.profile.isVerified}}</p>
+
+				</div>
+			</div>
+
+		</div>
+		
+		
+	</div>
+</div>
+
+<hr>
+
+{% if playerData.stats %}
+		
+			
+
+		<div class='container bg-dark bg-opacity-75 text-light shadow rounded'>
+				
+			<div class='row'>
+			{% for group,stats in playerData.stats.items %}
+				<div class='col'>
+					<a class="btn btn-block btn-primary" data-bs-toggle="collapse" href="#collapse{{group}}" role="button" aria-expanded="false" aria-controls="collapse{{group}}">
+					    {{group}}
+					 </a>
+
+				</div>
+						<div class="collapse" id="collapse{{group}}">
+							<div class='row mt-3'>
+
+										{% for grouping in stats %}
+									<div class='col-3'>
+
+									<div class="card card-body bg-dark bg-opacity-75">
+
+											<p>Season - {{grouping.season}}</p>
+											<p>League - {{grouping.league.name}}
+											<p>Team - {{grouping.team.name}}</p>
+											<p>GameType - {{grouping.gameType}}</p>  
+											
+											{% for key,value in grouping.stat.items %}
+												{% if key != 'position'|stringformat:'s' %}
+													<p>{{key}} - {{value}}</p>
+												{% else %}
+													<p>{{key}} - {{value.type}}/{{value.name}}</p> 
+												{% endif %}
+											{% endfor %}
+												<hr>
+								 	</div>
+						 		</div>
+
+										{% endfor %}
+
+						 	</div>
+						</div>
+						{% endfor %}
+					</div>
+			
+
+		</div>
+
+				
+{% endif %}
+
+</div>
+
+
+
+
+
+{% endblock %}

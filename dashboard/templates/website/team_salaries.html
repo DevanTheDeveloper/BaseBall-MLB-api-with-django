@@ -1,0 +1,18 @@
+ {% extends 'website/base.html' %}
+ {% load static %}
+{% block content %}
+{%load plotly_dash%}
+
+
+
+<div class='container'>
+    <h1>Statistics</h1>
+    <div class="card">
+{% plotly_app_bootstrap name="team_salaries" aspect="1by1" %}</div>
+
+</div>
+
+
+
+{% endblock %}
+

@@ -1,5 +1,5 @@
 ####
-BASEBALL DEMO - 1st Assignment
+BASEBALL DEMO -
 ####
 
 Setup environment:

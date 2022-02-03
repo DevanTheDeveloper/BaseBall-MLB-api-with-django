@@ -10,17 +10,6 @@ pip install -r requirements.txt
 
 manage.py runserver
 
-Navigate to: http://127.0.0.1:8000/mlb/
-
-
-####
-Test User Account (*Optional, only enables the ability to upload/download csv's, site is fully navigational without logging in)
-####
-
-Username: 'Demo
-
-Password: 'Testing1!'
-
 
 ####
 Features
